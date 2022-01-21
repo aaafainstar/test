@@ -3,7 +3,7 @@
 Created using JS Bin
 http://bin.webduino.io
 
-Copyright (c) 2022 by anonymous (http://bin.webduino.io/cazaz/1/edit)
+Copyright (c) 2022 by anonymous (http://bin.webduino.io/viwer/1/edit)
 
 Released under the MIT license: http://jsbin.mit-license.org
 -->
@@ -13,7 +13,10 @@ Released under the MIT license: http://jsbin.mit-license.org
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Webduino Blockly Demo 06</title>
+  <title>CTRL</title>
+  <H3>
+  <font color = white>
+  <body background="https://alldata.sgp1.digitaloceanspaces.com/images/christmas-dark.png">
   <script src="https://blocklypro.webduino.io/node_modules/jquery/dist/jquery.min.js?rev=2f6b11a7e914718e0290410e85366fe9"></script>
   <script src="https://blocklypro.webduino.io/dist/lib/webduino-all-0.4.20.min.js?rev=4426739c00d85325cb2d3d701fa50666"></script>
   <script src="https://blocklypro.webduino.io/dist/webduino-blockly.min.js?rev=b1ada5fdae699e60af615c060e786d60"></script>
@@ -27,10 +30,16 @@ Released under the MIT license: http://jsbin.mit-license.org
 </head>
 
 <body>
-    <span>風扇控制：</span><input type="range" min="0" max="180" step="5" value="90" id="demo-area-07-input"></div>
-  <p>
-    <span>電燈控制：</span><input type="range" min="0" max="180" step="5" value="90" id="demo-area-06-input"></div>
+    <span>電燈 </span><input type="range" min="0" max="180" step="5" value="90" id="demo-area-06-input"></div>
+    <P>
+    <span>風扇 </span><input type="range" min="0" max="180" step="5" value="90" id="demo-area-07-input"></div>
 <script id="jsbin-javascript">
+var A0;
+var A1;
+var A2;
+var LED;
+var FAN;
+
 var rgbled;
 
 function colour_rgb(r, g, b) {
@@ -46,22 +55,33 @@ function colour_rgb(r, g, b) {
 
 boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (board) {
   board.samplingInterval = 50;
+  A0 = getPin(board, 5);
+  A1 = getPin(board, 4);
+  A2 = getPin(board, 0);
+  A0.setMode(1);
+  A1.setMode(1);
+  A2.setMode(1);
+  A0.write(1);
+  A0.write(0);
   rgbled = getRGBLedCathode(board, 15, 12, 13);
-  document.getElementById('demo-area-06-input').setAttribute('min', 0);
-  document.getElementById('demo-area-06-input').setAttribute('max', 256);
-  document.getElementById('demo-area-06-input').setAttribute('step', 64);
-  document.getElementById('demo-area-06-input').setAttribute('value', 128);
-  document.getElementById('demo-area-06-input').oninput = function (_value) {
-    _value = this.value;
-    rgbled.setColor(colour_rgb(_value, 0, 0));
-  };
   document.getElementById('demo-area-07-input').setAttribute('min', 0);
   document.getElementById('demo-area-07-input').setAttribute('max', 256);
   document.getElementById('demo-area-07-input').setAttribute('step', 64);
   document.getElementById('demo-area-07-input').setAttribute('value', 128);
   document.getElementById('demo-area-07-input').oninput = function (_value) {
     _value = this.value;
-    rgbled.setColor(colour_rgb(0, _value, 0));
+    FAN=_value;
+    rgbled.setColor(colour_rgb(LED, FAN, 0));
+  };
+  document.getElementById('demo-area-06-input').setAttribute('min', 0);
+  document.getElementById('demo-area-06-input').setAttribute('max', 256);
+  document.getElementById('demo-area-06-input').setAttribute('step', 64);
+  document.getElementById('demo-area-06-input').setAttribute('value', 128);
+  document.getElementById('demo-area-06-input').oninput = function (_value) {
+    _value = this.value;
+     LED=_value;
+    rgbled.setColor(colour_rgb(LED, FAN, 0));
+
   };
 });
 
