@@ -40,7 +40,7 @@ Released under the MIT license: http://jsbin.mit-license.org
     <P> 
     <span>風扇 </span><input type="range" min="0" max="180" step="5" value="90" id="demo-area-07-input"></div>
     <P>
-    <span>數值：</span><span id="demo-area-06-input-value">00</span>
+    <span>數值</span><span id="demo-area-08-output">00</span>
 	
     </center>
 
@@ -81,8 +81,8 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
     _value = this.value;
     FAN=_value;
     rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
-    TEMP=LED+FAN;
-    document.getElementById('demo-area-06-input-value').innerHTML = TEMP;
+    TEMP= parseInt(LED*4)+ parseInt(FAN)
+    document.getElementById('demo-area-08-output').innerHTML = TEMP;
   };
   document.getElementById('demo-area-06-input').setAttribute('min', 0);
   document.getElementById('demo-area-06-input').setAttribute('max', 3);
@@ -92,8 +92,9 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
     _value = this.value;
      LED=_value;
     rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
-    TEMP=LED+FAN;
-     document.getElementById('demo-area-06-input-value').innerHTML = TEMP;
+    
+    TEMP= parseInt(LED*4)+ parseInt(FAN)
+     document.getElementById('demo-area-08-output').innerHTML = TEMP;
   };
 });
 </script>
