@@ -23,19 +23,16 @@ Released under the MIT license: http://jsbin.mit-license.org
   <script src="https://blocklypro.webduino.io/dist/lib/firebase.min.js?rev=c0bfd493efd477d098a4ae9e92b13880"></script>
   <script src="https://blocklypro.webduino.io/dist/lib/runtime.min.js?rev=683a69503433786202911b4d9f766100"></script>
 <style id="jsbin-css">
-
 #demo-area-06-input {
   pointer-events: auto!important;
 }
 #demo-area-07-input {
   pointer-events: auto!important;
 }
-
 </style>
 </head>
 
 <body>
-
    <center>
     智能檯燈控制系統
     <p>
@@ -43,22 +40,19 @@ Released under the MIT license: http://jsbin.mit-license.org
     <P> 
     <span>風扇 </span><input type="range" min="0" max="180" step="5" value="90" id="demo-area-07-input"></div>
     <P>
-    <input type = "hidden" name = "data" id = "MOD" value = "No">
+    <span>數值：</span><span id="demo-area-06-input-value">00</span>
 	
     </center>
 
-
 <script id="jsbin-javascript">
-
 var A0;
 var A1;
 var A2;
-var LED;
-var FAN;
-
+var A3;
+var LED = 0;
+var FAN = 0;
+var TEMP;
 var rgbled;
- document.getElementById( 'MOD' ).value = 'Yes';
- 
 function colour_rgb(r, g, b) {
   r = Math.max(Math.min(Number(r), 100), 0) * 2.55;
   g = Math.max(Math.min(Number(g), 100), 0) * 2.55;
@@ -80,26 +74,27 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
   A0.write(0);
   rgbled = getRGBLedCathode(board, 15, 12, 13);
   document.getElementById('demo-area-07-input').setAttribute('min', 0);
-  document.getElementById('demo-area-07-input').setAttribute('max', 256);
-  document.getElementById('demo-area-07-input').setAttribute('step', 64);
-  document.getElementById('demo-area-07-input').setAttribute('value', 128);
+  document.getElementById('demo-area-07-input').setAttribute('max', 3);
+  document.getElementById('demo-area-07-input').setAttribute('step', 1);
+  document.getElementById('demo-area-07-input').setAttribute('value', 0);
   document.getElementById('demo-area-07-input').oninput = function (_value) {
     _value = this.value;
     FAN=_value;
-    rgbled.setColor(colour_rgb(LED, FAN, 0));
+    rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
+    TEMP=LED+FAN;
+    document.getElementById('demo-area-06-input-value').innerHTML = TEMP;
   };
   document.getElementById('demo-area-06-input').setAttribute('min', 0);
-  document.getElementById('demo-area-06-input').setAttribute('max', 256);
-  document.getElementById('demo-area-06-input').setAttribute('step', 64);
-  document.getElementById('demo-area-06-input').setAttribute('value', 128);
+  document.getElementById('demo-area-06-input').setAttribute('max', 3);
+  document.getElementById('demo-area-06-input').setAttribute('step', 1);
+  document.getElementById('demo-area-06-input').setAttribute('value', 0);
   document.getElementById('demo-area-06-input').oninput = function (_value) {
     _value = this.value;
      LED=_value;
-    rgbled.setColor(colour_rgb(LED, FAN, 0));
- 
-
+    rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
+    TEMP=LED+FAN;
+     document.getElementById('demo-area-06-input-value').innerHTML = TEMP;
   };
 });
-
 </script>
 </body>
