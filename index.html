@@ -23,24 +23,33 @@ Released under the MIT license: http://jsbin.mit-license.org
   <script src="https://blocklypro.webduino.io/dist/lib/firebase.min.js?rev=c0bfd493efd477d098a4ae9e92b13880"></script>
   <script src="https://blocklypro.webduino.io/dist/lib/runtime.min.js?rev=683a69503433786202911b4d9f766100"></script>
 <style id="jsbin-css">
+<! CSS>
 #demo-area-06-input {
   pointer-events: auto!important;
 }
 #demo-area-07-input {
   pointer-events: auto!important;
 }
+<! CSS>
 </style>
 </head>
 
 <body>
+<! HTML>
    <center>
     智能檯燈控制系統
     <p>
     <span>電燈 </span><input type="range" min="0" max="180" step="5" value="90" id="demo-area-06-input"></div>
     <P> 
     <span>風扇 </span><input type="range" min="0" max="180" step="5" value="90" id="demo-area-07-input"></div>
-</center>
+    <P>
+    <span>數值：</span><span id="demo-area-06-input-value">90</span>
+	
+    </center>
+ <! HTML>    
+
 <script id="jsbin-javascript">
+<! JAVA>
 var A0;
 var A1;
 var A2;
@@ -48,7 +57,6 @@ var LED;
 var FAN;
 
 var rgbled;
-
 function colour_rgb(r, g, b) {
   r = Math.max(Math.min(Number(r), 100), 0) * 2.55;
   g = Math.max(Math.min(Number(g), 100), 0) * 2.55;
@@ -58,8 +66,6 @@ function colour_rgb(r, g, b) {
   b = ('0' + (Math.round(b) || 0).toString(16)).slice(-2);
   return '#' + r + g + b;
 }
-
-
 boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (board) {
   board.samplingInterval = 50;
   A0 = getPin(board, 5);
@@ -88,9 +94,10 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
     _value = this.value;
      LED=_value;
     rgbled.setColor(colour_rgb(LED, FAN, 0));
+     document.getElementById('demo-area-06-input-value').innerHTML = LED;
 
   };
 });
-
+<! JAVA>
 </script>
 </body>
