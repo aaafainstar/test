@@ -79,12 +79,14 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
   document.getElementById('demo-area-07-input').setAttribute('value', 0);
   document.getElementById('demo-area-07-input').oninput = function (_value) {
     _value = this.value;
-    FAN=_value;
-    A1.write(_value /2);
-    A0.write(_value %2);	  
+    FAN=_value;	  
     rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
     TEMP= parseInt(LED*4)+ parseInt(FAN)
-    document.getElementById('demo-area-08-output').innerHTML = TEMP;	  
+    document.getElementById('demo-area-08-output').innerHTML = TEMP;
+    A3.write(TEMP/8%2);
+    A2.write(TEMP/4%2);
+    A1.write(TEMP/2%2);
+    A0.write(TEMP/1%2);	  
   };
   document.getElementById('demo-area-06-input').setAttribute('min', 0);
   document.getElementById('demo-area-06-input').setAttribute('max', 3);
@@ -93,11 +95,13 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
   document.getElementById('demo-area-06-input').oninput = function (_value) {
     _value = this.value;
     LED=_value; 
-    A3.write(_value /2);
-    A2.write(_value %2);
     rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
     TEMP= parseInt(LED*4)+ parseInt(FAN)
     document.getElementById('demo-area-08-output').innerHTML = TEMP;  
+    A3.write(TEMP/8%2);
+    A2.write(TEMP/4%2);
+    A1.write(TEMP/2%2);
+    A0.write(TEMP/1%2);	  	   
   };
 });
 </script>
