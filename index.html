@@ -80,29 +80,25 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
   document.getElementById('demo-area-07-input').oninput = function (_value) {
     _value = this.value;
     FAN=_value;	  
+        if(FAN==3){
+	 A0.write(1);
+     	 A1.write(1);
+    }
+     if(FAN==2){
+	 A0.write(0);
+     	 A1.write(1);
+    }
+    if(FAN==1){
+	 A0.write(1);
+     	 A1.write(0);
+    }
+     if(FAN==0){
+	 A0.write(0);
+     	 A1.write(0);
+    }	  	  
     rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
     TEMP= parseInt(LED*4)+ parseInt(FAN)
     document.getElementById('demo-area-08-output').innerHTML = TEMP;
-     if(TEMP>7)  {
-	    TEMP=TEMP-8;
-	    A3.write(1);
-    }
-    if(TEMP<8)  A3.write(0);
-     if(TEMP>3)  3
-	    TEMP=TEMP-4;
-	    A2.write(1);
-    }
-    if(TEMP<4)  A2.write(0);
-     if(TEMP>1)  {
-	    TEMP=TEMP-2;
-	    A1.write(1);
-    }
-    if(TEMP<2)  A1.write(0);
-     if(TEMP>0)  {
-	    TEMP=TEMP-1;
-	    A0.write(1);
-    }
-    if(TEMP<0)  A0.write(0);	 
   };
   document.getElementById('demo-area-06-input').setAttribute('min', 0);
   document.getElementById('demo-area-06-input').setAttribute('max', 3);
@@ -111,29 +107,25 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
   document.getElementById('demo-area-06-input').oninput = function (_value) {
     _value = this.value;
     LED=_value; 
+    if(LED==3){
+	 A2.write(1);
+     	 A3.write(1);
+    }
+     if(LED==2){
+	 A2.write(0);
+     	 A3.write(1);
+    }
+    if(LED==1){
+	 A2.write(1);
+     	 A3.write(0);
+    }
+     if(LED==0){
+	 A2.write(0);
+     	 A3.write(0);
+    }	  
     rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
     TEMP= parseInt(LED*4)+ parseInt(FAN)
     document.getElementById('demo-area-08-output').innerHTML = TEMP;  
-    if(TEMP>7)  {
-	    TEMP=TEMP-8;
-	    A3.write(1);
-    }
-    if(TEMP<8)  A3.write(0);
-     if(TEMP>3)  3
-	    TEMP=TEMP-4;
-	    A2.write(1);
-    }
-    if(TEMP<4)  A2.write(0);
-     if(TEMP>1)  {
-	    TEMP=TEMP-2;
-	    A1.write(1);
-    }
-    if(TEMP<2)  A1.write(0);
-     if(TEMP>0)  {
-	    TEMP=TEMP-1;
-	    A0.write(1);
-    }
-    if(TEMP<0)  A0.write(0);	
   };
 });
 </script>
