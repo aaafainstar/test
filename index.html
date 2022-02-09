@@ -96,9 +96,9 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
 	 A0.write(0);
      	 A1.write(0);
     }	  	  
-    rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
-    TEMP= parseInt(LED*4)+ parseInt(FAN)
-    document.getElementById('demo-area-08-output').innerHTML = TEMP;
+    //rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
+    //TEMP= parseInt(LED*4)+ parseInt(FAN)
+    //document.getElementById('demo-area-08-output').innerHTML = TEMP;
   };
   document.getElementById('demo-area-06-input').setAttribute('min', 0);
   document.getElementById('demo-area-06-input').setAttribute('max', 3);
@@ -123,9 +123,9 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
 	 A2.write(0);
      	 A3.write(0);
     }	  
-    rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
-    TEMP= parseInt(LED*4)+ parseInt(FAN)
-    document.getElementById('demo-area-08-output').innerHTML = TEMP;  
+    //rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
+    //TEMP= parseInt(LED*4)+ parseInt(FAN)
+    //document.getElementById('demo-area-08-output').innerHTML = TEMP;  
   };
 });
 </script>
