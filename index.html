@@ -2,9 +2,7 @@
 <!--
 Created using JS Bin
 http://bin.webduino.io
-
 Copyright (c) 2022 by anonymous (http://bin.webduino.io/viwer/1/edit)
-
 Released under the MIT license: http://jsbin.mit-license.org
 -->
 <meta name="robots" content="noindex">
@@ -64,12 +62,14 @@ function colour_rgb(r, g, b) {
 }
 boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (board) {
   board.samplingInterval = 50;
-  A0 = getPin(board, 5);
+  A0 = getPin(board, 5);	
   A1 = getPin(board, 4);
   A2 = getPin(board, 0);
+  A3 = getPin(board, 2);
   A0.setMode(1);
   A1.setMode(1);
   A2.setMode(1);
+  A3.setMode(1);	
   A0.write(1);
   A0.write(0);
   rgbled = getRGBLedCathode(board, 15, 12, 13);
@@ -83,6 +83,10 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
     rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
     TEMP= parseInt(LED*4)+ parseInt(FAN)
     document.getElementById('demo-area-08-output').innerHTML = TEMP;
+    A3.write(TEMP/8%8);
+    A2.write(TEMP/4%4);
+    A1.write(TEMP/2%2);
+    A0.write(TEMP/1%1);	  	  
   };
   document.getElementById('demo-area-06-input').setAttribute('min', 0);
   document.getElementById('demo-area-06-input').setAttribute('max', 3);
@@ -92,9 +96,12 @@ boardReady({board: 'Smart', device: '10ybEAJd', transport: 'mqtt'}, function (bo
     _value = this.value;
      LED=_value;
     rgbled.setColor(colour_rgb(LED*64, FAN*64, 0));
-    
     TEMP= parseInt(LED*4)+ parseInt(FAN)
-     document.getElementById('demo-area-08-output').innerHTML = TEMP;
+    document.getElementById('demo-area-08-output').innerHTML = TEMP;
+    A3.write(TEMP/8%8);
+    A2.write(TEMP/4%4);
+    A1.write(TEMP/2%2);
+    A0.write(TEMP/1%1);	  
   };
 });
 </script>
